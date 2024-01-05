@@ -5,12 +5,13 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "flowbite-react";
 import { Poppins } from "next/font/google";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useInView } from "react-intersection-observer";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import TopAnime from "@/components/TopAnime";
+import { LoadingContext } from "@/context/loading";
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
 // type Anime = {
@@ -19,8 +20,8 @@ const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
 export default function RecommendPage() {
   const [data, setData] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { setIsLoading, isLoading } = useContext(LoadingContext);
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -93,7 +94,11 @@ export default function RecommendPage() {
                             {value["Genres"]}
                           </span>
                         </div>
-                        <h4 className="text-[#352F44]">{value["Name"]}</h4>
+                        <h4 className="text-[#352F44]">
+                          <Link href={`/detail/${value["Name"]}`}>
+                            {value["Name"]}
+                          </Link>
+                        </h4>
                       </div>
                       <div className="flex gap-1 mt-1">
                         <Button className="rounded-sm w-1/2">

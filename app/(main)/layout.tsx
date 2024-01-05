@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import { Poppins } from "next/font/google";
 import "@/app/globals.css";
 import { Metadata } from "next";
+import { LoadingWrapper } from "@/context/loading";
 
 export const metadata: Metadata = {
   title: "DIcoba",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        {children}
-        <Footer />
+        <LoadingWrapper>
+          <Navbar />
+          {children}
+          <Footer />
+        </LoadingWrapper>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
+import Link from "next/link";
 
 export default function TopAnime() {
   const [data, setData] = useState<any[]>([]);
@@ -53,7 +54,11 @@ export default function TopAnime() {
                       alt=""
                     />
                     <div className="text-[13px] text-[#352F44]">
-                      <h4 className="leading-4">{values["Name"]}</h4>
+                      <h4 className="leading-4">
+                        <Link href={`/detail/${values["Name"]}`}>
+                          {values["Name"]}
+                        </Link>
+                      </h4>
                       <h5 className="leading-4 mt-1">
                         <span className="text-[#5C5470]">Genres:</span>{" "}
                         {values["Genres"]}
