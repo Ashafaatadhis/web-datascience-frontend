@@ -11,7 +11,9 @@ export default function TopAnime() {
     setIsLoading(true);
     const fetchData = async () => {
       try {
-        const get = await axios.get(`http://127.0.0.1:5000/api/top`);
+        const get = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND}/api/top`
+        );
         const anime = get.data;
         setData(anime.data);
         console.log(anime.data);

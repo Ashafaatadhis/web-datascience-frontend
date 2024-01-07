@@ -100,7 +100,7 @@ export const getServerSideProps: GetServerSideProps<object> = async (
 ) => {
   // Fetch data from external API
   const data = await axios.get(
-    `http://localhost:5000/api/get/${context.query.name}`
+    `${process.env.NEXT_PUBLIC_BACKEND}/api/get/${context.query.name}`
   );
 
   // Pass data to the page via props

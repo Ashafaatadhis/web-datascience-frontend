@@ -25,7 +25,9 @@ export default function WatchDetail() {
     const fetchData = async () => {
       try {
         const get = await axios.get(
-          `http://localhost:5000/api/anime/detail?s=${searchParams?.get("s")}`
+          `${
+            process.env.NEXT_PUBLIC_BACKEND
+          }/api/anime/detail?s=${searchParams?.get("s")}`
         );
         const anime = get.data;
         setData(anime.data);
@@ -47,7 +49,7 @@ export default function WatchDetail() {
     setIsLoadingStream(true);
     try {
       const data = await axios.get(
-        `http://localhost:5000/api/anime/stream?s=${link}`
+        `${process.env.NEXT_PUBLIC_BACKEND}/api/anime/stream?s=${link}`
       );
       setStream(data.data.data);
     } catch (err) {

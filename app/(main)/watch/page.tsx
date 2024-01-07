@@ -23,12 +23,25 @@ export default function Detail() {
   const [search, setSearch] = useState<string>("");
   const [data, setData] = useState<Anime[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const handlerSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setIsLoading(true);
+      try {
+        const data = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND}/api/anime?s=${search}`
+        );
+        setData(data.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+      setIsLoading(false);
+    }
+  };
   const handlerSearch = async (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsLoading(true);
     try {
       const data = await axios.get(
-        `http://localhost:5000/api/anime?s=${search}`
+        `${process.env.NEXT_PUBLIC_BACKEND}/api/anime?s=${search}`
       );
       setData(data.data.data);
     } catch (err) {
@@ -43,6 +56,8 @@ export default function Detail() {
         <Input
           type="text"
           value={search}
+          disabled={isLoading ? true : false}
+          onKeyDown={handlerSubmit}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setSearch(e.target.value)
           }
